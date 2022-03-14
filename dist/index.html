@@ -1,49 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 
-    <link rel="manifest" href="manifest.json">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="image-viewer">
-    <meta name="apple-mobile-web-app-title" content="image-viewer">
-    <meta name="theme-color" content="#8B8B8B">
-    <meta name="msapplication-navbutton-color" content="#8B8B8B">
-    <meta name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent">
-    <meta name="msapplication-starturl" content="/itk-vtk-viewer/app/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="manifest.json">
 
-    <link rel="icon" type="image/png" sizes="50x50"
-    href="/itk-vtk-viewer/logo.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="50x50" href="/itk-vtk-viewer/logo.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="image-viewer">
+  <meta name="apple-mobile-web-app-title" content="image-viewer">
+  <meta name="theme-color" content="#8B8B8B">
+  <meta name="msapplication-navbutton-color" content="#8B8B8B">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/itk-vtk-viewer/app/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script type="text/javascript" src="https://lib.imjoy.io/imjoy-loader.js"></script>
-    <script>
-      if ('serviceWorker' in navigator && document.location.protocol !== 'http:') {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('./serviceWorker.js').then(function (registration) {
-            // Registration was successful
-            console.log('ServiceWorker registration successful with scope: ', registration.scope)
-          }, function (err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err)
-          })
+  <link rel="icon" type="image/png" sizes="50x50" href="/itk-vtk-viewer/logo.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="50x50" href="/itk-vtk-viewer/logo.png">
+
+  <script type="text/javascript" src="https://lib.imjoy.io/imjoy-loader.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && document.location.protocol !== 'http:') {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./serviceWorker.js').then(function (registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope)
+        }, function (err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err)
         })
-      }
-    </script>
+      })
+    }
+  </script>
 
-    <link rel="icon" type="image/png" href="favicon-32x32.png">
-  </head>
+  <link rel="icon" type="image/png" href="favicon-32x32.png">
+</head>
 
-  <body>
-    <div class="content" style="position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; overflow: hidden; background: black; margin: 0; padding: 0;"></div>
-    <script type="text/javascript" src="itkVtkViewer.js">
-    </script>
-    <script>
-     async function setupViewerForImJoy(container) {
+<body>
+  <div class="content"
+    style="position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; overflow: hidden; background: black; margin: 0; padding: 0;">
+  </div>
+  <script type="text/javascript" src="itkVtkViewer.js">
+  </script>
+  <script>
+    async function setupViewerForImJoy(container) {
       const imjoyRPC = await imjoyLoader.loadImJoyRPC({
         api_version: '0.2.3'
       })
@@ -66,16 +67,15 @@
 
     const container = document.querySelector('.content');
     // inside an iframe
-    if (window.self !== window.top) {
-      setupViewerForImJoy(container)
-    } else {
-      const viewer = itkVtkViewer.processURLParameters(container, {
-        fullscreen: true
-      });
-      if (!viewer) {
-        itkVtkViewer.createViewerFromLocalFiles(container)
-      }
+
+    const viewer = itkVtkViewer.processURLParameters(container, {
+      fullscreen: true
+    });
+    if (!viewer) {
+      itkVtkViewer.createViewerFromLocalFiles(container)
     }
+
   </script>
-  </body>
+</body>
+
 </html>

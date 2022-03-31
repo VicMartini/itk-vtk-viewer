@@ -1,0 +1,11 @@
+FROM node:12-alpine AS builder
+ENV NODE_ENV production
+# Add a work directory
+WORKDIR /app
+
+ADD /dist/ /app/
+
+RUN npm install -g http-server
+# Copy app files
+EXPOSE 8082
+CMD ["http-server"]
